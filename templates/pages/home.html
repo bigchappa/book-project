@@ -1,0 +1,71 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Bookstore{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="sticky-top" style="top: 20px;">
+                <div class="text-center mb-4">
+                    <img class="img-fluid" 
+                         src="{% static 'images/goat.jpg' %}" 
+                         alt="Bookstore Logo" 
+                         style="max-width: 150px;">
+                </div>
+                <h4 class="mb-3 text-primary">Жанры</h4>
+                <form action="{% url 'search' %}" method='get'>
+                    <div class="d-flex flex-column gap-2">
+                        {% for code, name in genres %}
+                        <div class="form-check">
+                            <input class="form-check-input" 
+                                   type="radio" 
+                                   name="genre" 
+                                   id="genre_{{ code }}" 
+                                   value="{{ code }}">
+                            <label class="form-check-label" for="genre_{{ code }}">
+                                {{ name }}
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary mt-3 w-100">
+                        <i class="bi bi-search"></i> Поиск
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <h1 class="display-5 fw-bold text-primary mb-4">Добро пожаловать в мир книг</h1>
+            
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-4">
+                    <p class="fs-5 text-secondary mb-4">
+                        В нашей коллекции вы найдете книги на любой вкус - от классической литературы 
+                        до современных бестселлеров. Мы тщательно отбираем каждое издание, чтобы 
+                        предложить вам только лучшее.
+                    </p>
+
+                    <div class="bg-light p-3 rounded-3 mb-4">
+                        <h2 class="h5 text-dark mb-3">📚 Наши преимущества</h2>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">✅ Профессиональные рекомендации</li>
+                            <li class="mb-2">✅ Специальные условия для постоянных клиентов</li>
+                            <li class="mb-2">✅ Еженедельное пополнение ассортимента</li>
+                        </ul>
+                    </div>
+
+                    <blockquote class="blockquote text-center mt-4">
+                        <p class="mb-0 fs-5 fst-italic text-primary">
+                            "Книги - это инструмент настройки души, 
+                            оркестр человеческого опыта под управлением читателя"
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
