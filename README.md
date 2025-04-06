@@ -1,4 +1,4 @@
-# :poop: Интернет-магазин на Django
+# Интернет-магазин на Django
 > Pet-проект. Создается в целях более лучшего изучения Python / Django:
 
 ## :triangular_ruler: Стек проекта: 
@@ -6,7 +6,7 @@
 - HTML5, CSS (Bootstrap 5)
 - PostgreSQL
 
-## :package: [Зависимости бекэнда](https://github.com/bigchappa/book-project/Pipfile.lock)
+## :package: [Зависимости бекэнда]([https://github.com/bigchappa/book-project/Pipfile.lock](https://github.com/bigchappa/book-project/blob/master/Pipfile.lock))
 
 ## :whale: Работа с Docker
 
