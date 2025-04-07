@@ -1,5 +1,6 @@
-media/
-/docker-volumes/
-__pycache__/
-*.pyc
-*.md
+media/*
+!media/.gitkeep
+media/avatars/*
+!media/avatars/.gitkeep
+media/covers/*
+!media/covers/.gitkeep
