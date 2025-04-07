@@ -22,6 +22,8 @@
                         <strong>bio:</strong>
                         <p class="mt-2 text-muted">{{ profile.bio|default:"Биография не указана" }}</p>
                     </div>
+                    <a href="{% url 'cart_list' %}" class="btn btn-outline-primary w-100">Перейти в корзину</a> <br>
+                    <br>
                     <a href="{% url 'edit_profile' %}" class="btn btn-outline-primary w-100">Редактировать профиль</a>
                     <strong>Список прочитанных книг:</strong>
                     <div class="row mt-3">

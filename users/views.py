@@ -1,8 +1,10 @@
 from django.template import context
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from . import forms
 from . import models
+from books.models import Book
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 class SignUpPageView(CreateView):
@@ -11,14 +13,14 @@ class SignUpPageView(CreateView):
     success_url = reverse_lazy('login')
     template_name = 'users/signup.html'
 
-class ProfileDetailView(DetailView):
+class ProfileDetailView(LoginRequiredMixin, DetailView):
 
     model = models.UserProfile
     template_name = 'account/profile.html'
 
     def get_object(self, queryset = ...):
         
-        profile, created = models.UserProfile.objects.get_or_create(
+        profile = models.UserProfile.objects.get(
             user=self.request.user,
         )
 
@@ -32,7 +34,7 @@ class ProfileDetailView(DetailView):
 
         return context
         
-class ProfileEditView(UpdateView):
+class ProfileEditView(LoginRequiredMixin, UpdateView):
     
     model = models.UserProfile
     form_class = forms.UserProfileForm
@@ -46,4 +48,3 @@ class ProfileEditView(UpdateView):
         )
 
         return profile
-

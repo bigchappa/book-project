@@ -10,5 +10,6 @@ urlpatterns = [
     path('<uuid:pk>/delete-book/', views.DeleteBookView.as_view(), name='book_delete'),
     path('<uuid:book_pk>/<int:pk>/delete-review/', views.DeleteReviewView.as_view(), name='review_delete'),
     path('<uuid:pk>/like/', views.AddLikeView.as_view(), name='like'),
-    path('add-book-to-profile/', views.AddBookToUser.as_view(), name='add-book-to-user')
+    path('add-book-to-profile/', views.AddBookToUser.as_view(), name='add-book-to-user'),
+    path('<uuid:pk>/add-book-to-cart/', views.AddBookToCart.as_view(), name='add-book-to-cart'),
 ]

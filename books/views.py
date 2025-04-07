@@ -62,7 +62,7 @@ class BookDetailView(LoginRequiredMixin, DetailView):
 
         return redirect(request.META.get('HTTP_REFERER', 'book_list'), pk=book.pk)
     
-class SearchResultView(ListView):
+class SearchResultView(LoginRequiredMixin, ListView):
 
     model = models.Book
     context_object_name = 'books'
@@ -109,7 +109,7 @@ class AddBookView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     def test_func(self):
         return self.request.user.is_superuser
 
-class DeleteBookView(DeleteView):
+class DeleteBookView(LoginRequiredMixin, DeleteView):
 
     model = models.Book
     success_url = reverse_lazy('book_list')
@@ -117,7 +117,7 @@ class DeleteBookView(DeleteView):
     def test_func(self):
         return self.request.user.is_superuser
     
-class DeleteReviewView(DeleteView):
+class DeleteReviewView(LoginRequiredMixin, DeleteView):
 
     model = models.Review
     
@@ -125,7 +125,7 @@ class DeleteReviewView(DeleteView):
         
         return reverse('book_detail', kwargs={'pk': self.kwargs['book_pk']})
     
-class AddLikeView(View):
+class AddLikeView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
 
@@ -142,3 +142,15 @@ class AddLikeView(View):
             like.delete()
 
         return redirect('book_detail', pk=self.kwargs['pk'])
+    
+class AddBookToCart(LoginRequiredMixin, View):
+
+    def post(self, request, *args, **kwargs):
+
+        book_id = request.POST.get('book_id')
+        book = get_object_or_404(
+            models.Book,
+            pk=book_id
+        )
+        request.user.profile.cart.add(book)
+        return redirect(request.META.get('HTTP_REFERER', 'book_detail'), pk=book_id)

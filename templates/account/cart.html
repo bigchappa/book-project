@@ -1,0 +1,100 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+        <div class="col-md-9">
+            <div class="book-grid-container">
+                <div class="book-grid">
+                    {% for book in books %}
+                    <div class="book-card">
+                        <div class="card h-100 shadow-sm">
+                            {% if book.cover %}
+                            <div class="book-cover-container">
+                                <img src="{{ book.cover.url }}" 
+                                     class="book-cover-image" 
+                                     alt="Обложка {{ book.title }}">
+                            </div>
+                            {% endif %}
+                            
+                            <div class="card-body">
+                                <h6 class="card-title mb-2">
+                                    <a href="{% url 'book_detail' book.pk %}" 
+                                       class="text-decoration-none text-dark">
+                                        {{ book.title|truncatechars:30 }}
+                                    </a>
+                                </h6>
+                                {% if book.author %}
+                                <p class="text-muted small mb-3">{{ book.author|truncatechars:25 }}</p>
+                                {% endif %}
+                                <p class="text-muted small mb-3">{{ book.price }}$</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <strong>Общая стоимость: {{full_price}}$</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .book-grid-container {
+        overflow-x: auto;
+    }
+
+    .book-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(200px, 1fr));
+        gap: 1.5rem;
+        padding-bottom: 1rem;
+    }
+    .book-card {
+        width: 100%;
+        min-width: 200px;
+        max-width: 300px;
+    }
+
+    /* Обложка книги */
+    .book-cover-container {
+        height: 350px;
+        overflow: hidden;
+        background: #f8f9fa;
+    }
+
+    .book-cover-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .book-cover-image:hover {
+        transform: scale(1.05);
+    }
+    .form-check-input:checked {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+
+    .sticky-top {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 1rem;
+    }
+    @media (max-width: 992px) {
+        .book-grid {
+            grid-template-columns: repeat(2, minmax(180px, 1fr));
+        }
+    }
+    @media (max-width: 576px) {
+        .book-grid {
+            grid-template-columns: 1fr;
+        }
+        .book-card {
+            max-width: 100%;
+        }
+    }
+</style>
+{% endblock %}
