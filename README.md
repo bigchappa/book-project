@@ -35,6 +35,8 @@ $ docker compose exec web python manage.py createsuperuser
 ```
   
 ## :camera: Скрины проекта
+![Image](https://github.com/user-attachments/assets/8ca04412-6366-4ee9-b5c8-462f7c346f47)
+![Image](https://github.com/user-attachments/assets/c17616de-929a-438a-b149-84f795e1ecc8)
 ![Image](https://github.com/user-attachments/assets/52950cf9-8a59-4604-82f8-7da643812624)
 ![Image](https://github.com/user-attachments/assets/08c7ae9b-9989-4f21-ae95-938139678026)
 ![Image](https://github.com/user-attachments/assets/c248f187-c42f-44a0-bf54-109da3a28ba1)
