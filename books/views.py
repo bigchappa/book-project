@@ -1,5 +1,5 @@
 from django.db.models import Q
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse, reverse_lazy
 from django.views import View
@@ -18,6 +18,19 @@ class BookListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['genres'] = models.Book.GENRE_CHOICES 
         return context
+
+class AddBookToUser(View):
+
+    def post(self, request, *args, **kwargs):
+
+        book_id = request.POST.get('book_id')
+        book = get_object_or_404(
+            models.Book,
+            pk=book_id,         
+        )
+        request.user.profile.books.add(book)
+        return redirect(request.META.get('HTTP_REFERER', 'book_list'))
+
 
 class BookDetailView(LoginRequiredMixin, DetailView):
 
@@ -47,7 +60,7 @@ class BookDetailView(LoginRequiredMixin, DetailView):
             review.book = book
             review.save()
 
-        return redirect('book_detail', pk=book.pk)
+        return redirect(request.META.get('HTTP_REFERER', 'book_list'), pk=book.pk)
     
 class SearchResultView(ListView):
 
