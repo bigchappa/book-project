@@ -12,4 +12,6 @@ urlpatterns = [
     path('<uuid:pk>/like/', views.AddLikeView.as_view(), name='like'),
     path('add-book-to-profile/', views.AddBookToUser.as_view(), name='add-book-to-user'),
     path('<uuid:pk>/add-book-to-cart/', views.AddBookToCart.as_view(), name='add-book-to-cart'),
+    path('add-author/', views.AddNewAuthor.as_view(), name='add-author'),
+    path('authors/<uuid:pk>/', views.AuthorDetailView.as_view(), name='author-detail'),
 ]

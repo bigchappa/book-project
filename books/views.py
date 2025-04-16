@@ -154,3 +154,22 @@ class AddBookToCart(LoginRequiredMixin, View):
         )
         request.user.profile.cart.add(book)
         return redirect(request.META.get('HTTP_REFERER', 'book_detail'), pk=book_id)
+    
+
+class AddNewAuthor(LoginRequiredMixin, CreateView):
+
+    model = models.Author
+    fields = "__all__"
+    template_name = 'books/author_creation.html'
+    permission_required = 'books.special_status'
+
+    def get_success_url(self):
+        
+        return reverse('author-detail', kwargs={'pk': self.object.pk})
+    
+
+class AuthorDetailView(LoginRequiredMixin, DetailView):
+
+    model = models.Author
+    template_name = 'books/author-detail.html'
+    context_object_name = 'author'

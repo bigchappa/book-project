@@ -23,7 +23,7 @@
                         <div class="col-md-6">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <strong>Автор:</strong> {{ book.author }} <br>
+                                    <strong>Автор:</strong><a href="{% url "author-detail" book.author.pk %}"> {{ book.author.name }} </a><br>
                                     <strong>Жанр: </strong> {{ book.get_genre_display }}
                                 </li>
                             </ul>

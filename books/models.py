@@ -2,8 +2,21 @@ from django.contrib.auth import get_user_model
 from django.db import models
 import uuid
 
+class Author(models.Model):
 
-# Create your models here.
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False
+    )
+    photo = models.ImageField(upload_to='covers/', blank=True)
+    name = models.CharField(max_length=120)
+    bio = models.TextField()
+    date_of_birth = models.DateField()
+
+    def __str__(self):
+        return self.name
+
 class Book(models.Model):   
 
     GENRE_CHOICES = [
@@ -21,7 +34,11 @@ class Book(models.Model):
         editable=False
     )
     title = models.CharField(max_length=200)
-    author = models.CharField(max_length=200)
+    author = models.ForeignKey(
+        Author,
+        on_delete=models.CASCADE,
+        related_name='books',
+    )
     price = models.DecimalField(max_digits=6, decimal_places=2)
     cover = models.ImageField(upload_to='covers/', blank=True)
     genre = models.CharField(
@@ -39,6 +56,7 @@ class Book(models.Model):
     def __str__(self):
 
         return self.title 
+
     
 class Review(models.Model):
 

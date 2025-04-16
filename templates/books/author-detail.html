@@ -1,0 +1,54 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h3 class="card-title mb-0">{{ author.name }}</h3>
+        </div>
+        <div class="card-body">
+          <div class="text-center mb-4">
+            {% if author.photo %}
+            <img src="{{ author.photo.url }}" 
+                 alt="Фото автора {{ author.name }}" 
+                 class="img-fluid rounded" 
+                 style="max-height: 300px;">
+            {% else %}
+            <img src="https://via.placeholder.com/300x200?text=No+Image" 
+                 alt="Нет фото" 
+                 class="img-fluid rounded" 
+                 style="max-height: 300px;">
+            {% endif %}
+          </div>
+          <p>{{ author.bio }}</p>
+          <p><strong>Дата рождения:</strong> {{ author.date_of_birth }}</p>
+          <hr>
+          <h4>Книги автора</h4>
+          {% if author.books.all %}
+          <div class="row">
+            {% for book in author.books.all %}
+            <div class="col-4 col-sm-3 col-md-2 mb-3">
+              <a href="{% url 'book_detail' book.pk %}" title="{{ book.title }}">
+                {% if book.cover %}
+                <img src="{{ book.cover.url }}" 
+                     alt="Обложка книги {{ book.title }}" 
+                     class="img-fluid img-thumbnail">
+                {% else %}
+                <img src="https://via.placeholder.com/150?text=No+Cover" 
+                     alt="Нет обложки" 
+                     class="img-fluid img-thumbnail">
+                {% endif %}
+                <div class="small fw-semibold">{{ book.title }}</div>
+              </a>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
