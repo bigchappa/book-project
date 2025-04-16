@@ -16,6 +16,12 @@ class Author(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+
+        permissions = [
+            ('add_author_status', 'Can add author'),
+        ]
 
 class Book(models.Model):   
 
@@ -51,7 +57,10 @@ class Book(models.Model):
 
         permissions = [
             ('special_status', 'Can read all books'),
+            ('add_book_status', 'Can add book'),
         ]
+
+    
 
     def __str__(self):
 

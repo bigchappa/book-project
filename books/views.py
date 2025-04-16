@@ -100,7 +100,7 @@ class AddBookView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = models.Book
     fields = '__all__'
     template_name = 'books/add_book.html'
-    permission_required = 'books.special_status'
+    permission_required = 'books.add_book_status'
 
     def get_success_url(self):
         
@@ -156,12 +156,12 @@ class AddBookToCart(LoginRequiredMixin, View):
         return redirect(request.META.get('HTTP_REFERER', 'book_detail'), pk=book_id)
     
 
-class AddNewAuthor(LoginRequiredMixin, CreateView):
+class AddNewAuthor(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
     model = models.Author
     fields = "__all__"
     template_name = 'books/author_creation.html'
-    permission_required = 'books.special_status'
+    permission_required = 'books.add_author_status'
 
     def get_success_url(self):
         
